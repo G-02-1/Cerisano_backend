@@ -37,17 +37,38 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    #App di terze parti
+    'drf_spectacular',
+    'rest_framework',
+    'corsheaders',
+
+    #APP
+    'cerisano_backend_db',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8000', #dev server
+
+    #add deploy server
+    #add front-end server
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
 
 ROOT_URLCONF = 'core.urls'
 
@@ -115,6 +136,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Impostazioni per i file caricati dall'utente (MEDIA)
+# Questo è l'URL pubblico per i tuoi file. Sarà tipo http://localhost:8000/media/reports/photos/foto.jpg
+MEDIA_URL = '/media/'
+
+# Questo è il percorso sul disco dove Django salverà i file caricati.
+# Verrà creata una cartella 'media' nella directory principale del tuo progetto.
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
